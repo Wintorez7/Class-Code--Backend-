@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+</head>
+<body>
+    <div>
+        <a href="/">Home</a>
+    </div>
+    <div>
+        <form id="login" >
+            <table>
+                <tr>
+                    <td><label>UserName :</label></td>
+                    <td><input type="text" name="UserName" ></td>
+                </tr>
+                <tr>
+                    <td><label>Password</label></td>
+                    <td><input type="password" name="password"></td>
+                </tr>
+                <tr>
+                    <td><button type="submit">Login</button></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <script>
+        let loginForm = document.getElementById("login")
+        let formData = {}
+        loginForm.addEventListener("input",(event) => {
+
+            let value = event.target.value
+            let name = event.target.value
+            formData[name] = value
+            console.log(formData);
+
+        })
+        
+        loginForm.addEventListener("submit",(event) => {
+            event.preventDefault()
+            fetch("/loginData",{
+                method:"POST",
+                headers:{"Content-Type":"application/json"},
+                body:JSON.stringify(formData)
+            }).then(response => response.JSON())
+              .then(data => console.log(data))
+              .catch(error => console.log(error))  
+        })
+    </script>
+</body>
+</html>
